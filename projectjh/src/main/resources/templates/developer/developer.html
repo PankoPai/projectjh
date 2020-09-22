@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Developers</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Founded</th>
+        <th>Country</th>
+        <th>Headquarters</th>
+    </tr>
+    <tr th:each="developer : ${developers}">
+        <th th:text="${developer.id}">123</th>
+        <th th:text="${developer.name}">CD Projekt</th>
+        <th th:text="${developer.year}">1994</th>
+        <th th:text="${developer.country}">Poland</th>
+        <th th:text="${developer.hq}">Warsaw</th>
+    </tr>
+</table>
+<a href="#" th:href="@{'/developer/new'}">Add</a>
+<a href="#" th:href="@{'/developer/edit'}">Edit</a>
+
+</body>
+</html>
