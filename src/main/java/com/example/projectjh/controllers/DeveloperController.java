@@ -8,35 +8,51 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.example.projectjh.repositories.DeveloperRepository;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Controller
 public class DeveloperController {
     private DeveloperRepository developerRepository;
+    private DeveloperCommandToDeveloper developerCommandToDeveloper;
 
-    public DeveloperController(DeveloperRepository developerRepository) {
+    public DeveloperController(DeveloperRepository developerRepository, DeveloperCommandToDeveloper developerCommandToDeveloper) {
         this.developerRepository = developerRepository;
+        this.developerCommandToDeveloper = developerCommandToDeveloper;
     }
 
-    @RequestMapping("/developer")
+    @RequestMapping(value = {"/developers", "/developer/list"})
     public String getDevelopers(Model model, @PathVariable("id") Long id) {
-
-        model.addAttribute("developers", developerRepository.findById(id).get());
+        model.addAttribute("developer", developerRepository.findById(id).get());
         return "developer/show";
     }
 
-    @GetMapping("/developer/new")
-    public String newDeveloper(Model model) {
+    @RequestMapping("/developer/{id}/show")
+    public String getDeveloperDetails(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("developer", developerRepository.findById(id).get());
+        return "developer/show";
+    }
+
+    @RequestMapping("/developer/{id}/delete")
+    public String deleteDeveloper(@PathVariable("id") Long id) {
+        developerRepository.deleteById(id);
+        return "redirect:/developers";
+    }
+
+    @GetMapping
+    @RequestMapping("/developer/new")
+    public String newGame(Model model){
         model.addAttribute("developer", new DeveloperCommand());
         return "developer/addedit";
     }
 
     @PostMapping("developer")
-
     public String saveOrUpdate(@ModelAttribute DeveloperCommand command){
-        Optional<Developer> developerOptional = developerRepository.getFirstByName(command.getName());
+
+        Optional<Developer> developerOptional = developerRepository.getDeveloperByName(command.getName());
+
         if (!developerOptional.isPresent()) {
-            Developer detachedDeveloper = DeveloperCommandToDeveloper.convert(command);
+            Developer detachedDeveloper = developerCommandToDeveloper.convert(command);
             Developer savedDeveloper = developerRepository.save(detachedDeveloper);
             return "redirect:/developer/" + savedDeveloper.getId() + "/show";
         } else {
