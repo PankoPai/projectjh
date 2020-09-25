@@ -17,24 +17,4 @@ public class DeveloperCommand {
     private String year;
     private String country;
     private String hq;
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public String getHq() {
-        return hq;
-    }
 }
