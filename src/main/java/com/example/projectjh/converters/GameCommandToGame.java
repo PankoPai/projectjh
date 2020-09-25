@@ -30,15 +30,7 @@ public class GameCommandToGame implements Converter<GameCommand, Game> {
         }
 
         final Game game = new Game();
-        /** game.setId(source.getId()); */ // I don't know why, but something won't read you functions from other classes.
-
-        /**
-        final Game game = new Game();
+        game.setId(source.getId()); // I don't know why, but something won't read you functions from other classes.
         game.setTitle(source.getTitle());
-        game.setGenre(source.getGenre());
-        game.setYear(source.getYear());
-
-        return game;
-         */
     }
 }
