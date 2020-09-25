@@ -9,6 +9,9 @@ import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import javax.swing.text.html.Option;
+import java.util.Optional;
+
 @Component
 public class GameCommandToGame implements Converter<GameCommand, Game> {
 
