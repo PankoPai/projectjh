@@ -17,4 +17,5 @@ public class DeveloperCommand {
     private String year;
     private String country;
     private String hq;
+
 }
