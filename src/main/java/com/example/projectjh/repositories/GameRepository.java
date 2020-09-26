@@ -11,5 +11,4 @@ import java.util.Optional;
 public interface GameRepository extends CrudRepository <Game,Long>{
 
     List<Game> getAllByDevelopersIsContaining(Developer developer);
-    Optional<Game> getFirstByHq(String hq); // You can set whatever you want here.
 }
